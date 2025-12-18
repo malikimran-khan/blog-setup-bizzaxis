@@ -55,17 +55,17 @@ export default function InsertData() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-20">
-      <div className="w-full max-w-lg bg-white rounded-3xl shadow-xl p-10">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10 md:py-20">
+      <div className="w-full max-w-2xl bg-white rounded-3xl p-8 md:p-12 shadow-md md:shadow-lg">
         {/* Header */}
-        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-gray-900">
           Create New Post
         </h2>
 
         {/* Success/Error Message */}
         {message.text && (
           <div
-            className={`mb-6 px-5 py-3 rounded-lg text-center text-sm font-semibold transition ${
+            className={`mb-6 px-5 py-3 rounded-lg text-center text-sm md:text-base font-semibold transition ${
               message.type === "success"
                 ? "bg-green-600 text-white"
                 : "bg-red-100 text-red-700"
@@ -78,7 +78,7 @@ export default function InsertData() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Post Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">
               Post Title
             </label>
             <input
@@ -88,13 +88,13 @@ export default function InsertData() {
               onChange={handleChange}
               placeholder="Enter a descriptive title"
               required
-              className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition"
+              className="w-full rounded-xl border border-gray-300 px-4 md:px-5 py-2.5 md:py-3 text-sm md:text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition"
             />
           </div>
 
           {/* Post Details */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">
               Post Details
             </label>
             <textarea
@@ -104,13 +104,13 @@ export default function InsertData() {
               onChange={handleChange}
               placeholder="Write your post content here..."
               required
-              className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition resize-none"
+              className="w-full rounded-xl border border-gray-300 px-4 md:px-5 py-2.5 md:py-3 text-sm md:text-base text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition resize-none"
             />
           </div>
 
           {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm md:text-base font-medium text-gray-700 mb-2">
               Upload Image
             </label>
             <input
@@ -119,7 +119,7 @@ export default function InsertData() {
               onChange={handleFileChange}
               ref={fileInputRef}
               required
-              className="w-full text-sm file:mr-4 file:py-2 file:px-4
+              className="w-full text-sm md:text-base file:mr-4 file:py-2 file:px-4
                 file:rounded-xl file:border-0
                 file:bg-[#f6881f] file:text-white
                 hover:file:bg-[#e47716] cursor-pointer transition"
@@ -130,7 +130,7 @@ export default function InsertData() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-[#f6881f] text-white py-3 text-sm font-semibold hover:bg-[#e47716] transition disabled:opacity-60"
+            className="w-full rounded-xl bg-[#f6881f] text-white py-3 text-sm md:text-base font-semibold hover:bg-[#e47716] transition disabled:opacity-60"
           >
             {loading ? "Publishing..." : "Publish Post"}
           </button>

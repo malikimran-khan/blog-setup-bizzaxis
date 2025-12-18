@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { HiMenu, HiX } from "react-icons/hi";
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+
+  const links = [
+    { name: "Home", path: "/" },
+    { name: "Add", path: "/insert" },
+    { name: "Show", path: "/show" },
+    { name: "BizAxis", path: "https://bizaxis.net", external: true },
+  ];
+
   return (
     <nav className="w-full bg-white sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -17,39 +29,70 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Links */}
-        <div className="flex items-center gap-8">
-          <Link
-            to="/"
-            className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] after:transition-all after:duration-300 hover:after:w-full"
-          >
-            Home
-          </Link>
+        {/* Desktop Links */}
+        <div className="hidden md:flex items-center gap-8">
+          {links.map((link) =>
+            link.external ? (
+              <a
+                key={link.name}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 
+                after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] 
+                after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.path}
+                className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 
+                after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] 
+                after:transition-all after:duration-300 hover:after:w-full"
+              >
+                {link.name}
+              </Link>
+            )
+          )}
+        </div>
 
-          <Link
-            to="/insert"
-            className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] after:transition-all after:duration-300 hover:after:w-full"
-          >
-            Add
-          </Link>
-
-          <Link
-            to="/show"
-            className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] after:transition-all after:duration-300 hover:after:w-full"
-          >
-            Show
-          </Link>
-
-          <a
-            href="https://bizaxis.net"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300 after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-0 after:h-[2px] after:bg-[#f6881f] after:transition-all after:duration-300 hover:after:w-full"
-          >
-            BizAxis
-          </a>
+        {/* Mobile Hamburger */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu} className="text-gray-800 focus:outline-none">
+            {isOpen ? <HiX size={28} /> : <HiMenu size={28} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="md:hidden bg-white px-6 pb-4">
+          {links.map((link) =>
+            link.external ? (
+              <a
+                key={link.name}
+                href={link.path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block py-2 text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300"
+              >
+                {link.name}
+              </a>
+            ) : (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setIsOpen(false)}
+                className="block py-2 text-gray-800 font-semibold text-lg hover:text-[#f6881f] transition duration-300"
+              >
+                {link.name}
+              </Link>
+            )
+          )}
+        </div>
+      )}
     </nav>
   );
 }
