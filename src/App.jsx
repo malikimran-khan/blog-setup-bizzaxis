@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import InsertData from './InsertData';
 import FetchData from './FetchData';
 import './App.css';
+import Home from './Home';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
         <Navbar />
         <main>
           <Routes>
-            <Route path="/" element={<InsertData />} />
+          <Route path="/" element={<Home/>}></Route>
+            <Route path="/insert" element={<InsertData />} />
             <Route path="/show" element={<FetchData />} />
           </Routes>
         </main>

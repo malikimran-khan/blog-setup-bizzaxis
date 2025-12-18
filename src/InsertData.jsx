@@ -25,7 +25,7 @@ export default function InsertData() {
     e.preventDefault();
 
     if (!image) {
-      setMessage({ text: "PLEASE SELECT AN IMAGE", type: "error" });
+      setMessage({ text: "Please select an image for the post.", type: "error" });
       return;
     }
 
@@ -40,13 +40,13 @@ export default function InsertData() {
 
       await axios.post("https://bizzaxis-backend.vercel.app/api/posts", data);
 
-      setMessage({ text: "POST CREATED SUCCESSFULLY", type: "success" });
+      setMessage({ text: "Post published successfully!", type: "success" });
       setFormData({ title: "", description: "" });
       setImage(null);
       fileInputRef.current.value = "";
     } catch (error) {
       setMessage({
-        text: error.response?.data?.message || "SERVER ERROR",
+        text: error.response?.data?.message || "Server error. Please try again.",
         type: "error",
       });
     } finally {
@@ -56,16 +56,18 @@ export default function InsertData() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-20">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
-        <h2 className="text-2xl font-semibold text-center mb-6">
-          Insert Post
+      <div className="w-full max-w-lg bg-white rounded-3xl shadow-xl p-10">
+        {/* Header */}
+        <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+          Create New Post
         </h2>
 
+        {/* Success/Error Message */}
         {message.text && (
           <div
-            className={`mb-6 rounded-lg px-4 py-3 text-center text-sm font-semibold ${
+            className={`mb-6 px-5 py-3 rounded-lg text-center text-sm font-semibold transition ${
               message.type === "success"
-                ? "bg-black text-white"
+                ? "bg-green-600 text-white"
                 : "bg-red-100 text-red-700"
             }`}
           >
@@ -73,41 +75,43 @@ export default function InsertData() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Title */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Post Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Title
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Post Title
             </label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
+              placeholder="Enter a descriptive title"
               required
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition"
             />
           </div>
 
-          {/* Description */}
+          {/* Post Details */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Post Details
             </label>
             <textarea
               name="description"
-              rows="4"
+              rows="5"
               value={formData.description}
               onChange={handleChange}
+              placeholder="Write your post content here..."
               required
-              className="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
+              className="w-full rounded-xl border border-gray-300 px-5 py-3 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#f6881f] focus:border-[#f6881f] transition resize-none"
             />
           </div>
 
-          {/* Image */}
+          {/* Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Image
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Upload Image
             </label>
             <input
               type="file"
@@ -116,20 +120,19 @@ export default function InsertData() {
               ref={fileInputRef}
               required
               className="w-full text-sm file:mr-4 file:py-2 file:px-4
-              file:rounded-lg file:border-0
-              file:bg-black file:text-white
-              hover:file:bg-gray-800 cursor-pointer"
+                file:rounded-xl file:border-0
+                file:bg-[#f6881f] file:text-white
+                hover:file:bg-[#e47716] cursor-pointer transition"
             />
           </div>
 
-          {/* Button */}
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-black text-white py-2.5 text-sm font-semibold
-            hover:bg-gray-800 transition disabled:opacity-60"
+            className="w-full rounded-xl bg-[#f6881f] text-white py-3 text-sm font-semibold hover:bg-[#e47716] transition disabled:opacity-60"
           >
-            {loading ? "UPLOADING..." : "SUBMIT"}
+            {loading ? "Publishing..." : "Publish Post"}
           </button>
         </form>
       </div>
