@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"; 
 import axios from "axios";
-import { FiTrash2, FiRefreshCw } from "react-icons/fi";
+import { FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 export default function FetchData() {
@@ -80,17 +80,19 @@ export default function FetchData() {
                 key={item._id}
                 className="group relative rounded-3xl overflow-hidden bg-white shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1"
               >
-                <div className="h-64 overflow-hidden bg-gray-100">
+                {/* Image */}
+                <div className="w-full h-64 sm:h-72 md:h-80 lg:h-96 overflow-hidden bg-gray-100 flex items-center justify-center">
                   <img
                     src={
                       item.image ||
                       "https://via.placeholder.com/600x400/000000/FFFFFF?text=NO+IMAGE"
                     }
                     alt={item.title}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
+                {/* Delete Button */}
                 <div className="absolute top-4 right-4 flex gap-2 opacity-0 group-hover:opacity-100 transition">
                   <button
                     onClick={() => handleDelete(item._id)}
@@ -101,26 +103,32 @@ export default function FetchData() {
                   </button>
                 </div>
 
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-black mb-2 break-words">
-                    {item.title}
-                  </h3>
+                {/* Content */}
+                <div className="p-6 flex flex-col justify-between h-full">
+                  <div>
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-black mb-2 break-words">
+                      {item.title}
+                    </h3>
 
-                  <div className="w-12 h-[2px] bg-[#f6881f] mb-4"></div>
+                    {/* Divider */}
+                    <div className="w-12 h-[3px] bg-[#f6881f] mb-4 rounded-full"></div>
 
-                  <p className="text-gray-700 text-sm leading-relaxed">
-                    {shouldTruncate
-                      ? item.description.slice(0, 200) + "..."
-                      : item.description}
-                    {shouldTruncate && (
-                      <button
-                        onClick={() => goToBlogDetail(item._id)}
-                        className="ml-2 text-[#f6881f] font-semibold hover:underline"
-                      >
-                        Read More
-                      </button>
-                    )}
-                  </p>
+                    {/* Description */}
+                    <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+                      {shouldTruncate
+                        ? item.description.slice(0, 200) + "..."
+                        : item.description}
+                      {shouldTruncate && (
+                        <button
+                          onClick={() => goToBlogDetail(item._id)}
+                          className="ml-2 text-[#f6881f] font-semibold hover:underline"
+                        >
+                          Read More
+                        </button>
+                      )}
+                    </p>
+                  </div>
                 </div>
               </div>
             );
