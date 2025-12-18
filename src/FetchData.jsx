@@ -35,7 +35,7 @@ export default function FetchData() {
     if (!confirm) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`);
+      await axios.delete(`https://bizzaxis-backend.vercel.app/api/posts/${id}`);
       fetchData(); // refresh data after deletion
     } catch (err) {
       console.error("Delete Error:", err);
