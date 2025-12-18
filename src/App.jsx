@@ -5,6 +5,7 @@ import InsertData from './InsertData';
 import FetchData from './FetchData';
 import './App.css';
 import Home from './Home';
+import BlogDetail from './BlogDetail';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home/>}></Route>
             <Route path="/insert" element={<InsertData />} />
             <Route path="/show" element={<FetchData />} />
+            <Route path='/blog-detail' element={<BlogDetail/>}></Route>
           </Routes>
         </main>
       </div>
