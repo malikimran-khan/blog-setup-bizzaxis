@@ -1,26 +1,60 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Navbar';
-import InsertData from './InsertData';
-import FetchData from './FetchData';
+import Navbar from './components/Navbar';
+import InsertData from './pages/InsertData';
+import FetchData from './pages/FetchData';
+import Home from './pages/Home';
+import BlogDetail from './pages/BlogDetail';
+import Login from './pages/Login';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
-import Home from './Home';
-import BlogDetail from './BlogDetail';
 
 function App() {
   return (
     <Router>
-      <div className="app">
-        <Navbar />
-        <main>
-          <Routes>
-          <Route path="/" element={<Home/>}></Route>
-            <Route path="/insert" element={<InsertData />} />
-            <Route path="/show" element={<FetchData />} />
-            <Route path='/blog-detail' element={<BlogDetail/>}></Route>
-          </Routes>
-        </main>
-      </div>
+      <AuthProvider>
+        <div className="app">
+          <Navbar />
+          <main>
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/insert"
+                element={
+                  <ProtectedRoute>
+                    <InsertData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/show"
+                element={
+                  <ProtectedRoute>
+                    <FetchData />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/blog-detail"
+                element={
+                  <ProtectedRoute>
+                    <BlogDetail />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </main>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
