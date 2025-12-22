@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import API_CONFIG from "../config/apiConfig";
 
 export default function InsertData() {
@@ -9,6 +10,8 @@ export default function InsertData() {
         title: "",
         description: "",
     });
+
+    const { token } = useAuth();
 
     const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -39,7 +42,11 @@ export default function InsertData() {
             setLoading(true);
             setMessage({ text: "", type: "" });
 
-            await axios.post(`${API_CONFIG.BASE_URL}/posts`, data);
+            await axios.post(`${API_CONFIG.BASE_URL}/posts`, data, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
             setMessage({ text: "Post published successfully!", type: "success" });
             setFormData({ title: "", description: "" });
@@ -67,8 +74,8 @@ export default function InsertData() {
                 {message.text && (
                     <div
                         className={`mb-6 px-5 py-3 rounded-lg text-center text-sm md:text-base font-semibold transition ${message.type === "success"
-                                ? "bg-green-600 text-white"
-                                : "bg-red-100 text-red-700"
+                            ? "bg-green-600 text-white"
+                            : "bg-red-100 text-red-700"
                             }`}
                     >
                         {message.text}

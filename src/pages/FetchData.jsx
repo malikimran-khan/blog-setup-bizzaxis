@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import API_CONFIG from "../config/apiConfig";
 
 export default function FetchData() {
@@ -9,6 +10,7 @@ export default function FetchData() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate(); // For navigation
+    const { token } = useAuth();
 
     useEffect(() => {
         fetchData();
@@ -35,7 +37,11 @@ export default function FetchData() {
         if (!confirm) return;
 
         try {
-            await axios.delete(`${API_CONFIG.BASE_URL}/posts/${id}`);
+            await axios.delete(`${API_CONFIG.BASE_URL}/posts/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             fetchData();
         } catch (err) {
             console.error("Delete Error:", err);
