@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
     const login = (newToken) => {
         localStorage.setItem('token', newToken);
         setToken(newToken);
-        console.log(newToken)
         setIsAuthenticated(true);
         navigate('/');
     };
