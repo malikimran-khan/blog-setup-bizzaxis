@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
+import ChatBot from './pages/ChatBot';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Navbar />
           <main>
             <Routes>
+            <Route path="/chatbot" element={<ChatBot/>} />
               <Route path="/login" element={<Login />} />
               <Route
                 path="/"

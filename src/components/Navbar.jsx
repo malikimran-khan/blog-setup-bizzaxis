@@ -13,6 +13,7 @@ export default function Navbar() {
         { name: "Home", path: "/" },
         { name: "Add", path: "/insert" },
         { name: "Show", path: "/show" },
+        { name: "ChatBot", path: "/chatbot" },
         { name: "BizAxis", path: "https://bizaxis.net", external: true },
     ];
 
